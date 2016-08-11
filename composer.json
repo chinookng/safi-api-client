@@ -1,0 +1,13 @@
+{
+    "name": "morrelinko/safi-api-client",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Laju Morrison",
+            "email": "morrelinko@gmail.com"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^6.2"
+    }
+}
