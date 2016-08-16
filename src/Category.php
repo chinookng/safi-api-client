@@ -12,10 +12,21 @@ class Category
     }
 
     /**
+     * @param array $options
+     * @return array|mixed
+     */
+    public function all($options = [])
+    {
+        $options = array_merge([], $options);
+
+        return $this->client->call('GET', 'categories', $options);
+    }
+
+    /**
      * @param $data
      * @return array|mixed
      */
-    public function createCategory($data)
+    public function create($data)
     {
         return $this->client->call('POST', 'categories', [
             'headers' => ['Content-Type' => 'application/json'],
@@ -24,11 +35,22 @@ class Category
     }
 
     /**
+     * @param $categoryId
+     * @param $data
+     * @return array|mixed
+     */
+    public function update($categoryId, $data)
+    {
+        return $this->client->call('POST', '/categories/' . $categoryId, [
+            'json' => $data
+        ]);
+    }
+
+    /**
      * @return string
      */
-    public function datatableUrl()
+    public function dataTable()
     {
         return $this->client->buildUrl('datatables/admin/categories');
     }
 }
-

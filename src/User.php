@@ -13,12 +13,12 @@ class User
 
     /**
      * Gets product lists
-     *
+     * @param $options
      * @return array|mixed
      */
-    public function find()
+    public function find($options = [])
     {
-        return $this->client->call('GET', 'users');
+        return $this->client->call('GET', 'users', $options);
     }
 
     /**
@@ -50,14 +50,34 @@ class User
      */
     public function update($userId, $data)
     {
-        $this->buildAddress($data, 'home_address');
-        $this->buildAddress($data, 'work_address');
-        $this->buildAddress($data, 'other_address');
-
-        return $this->client->call('PUT', 'users/' . $userId, [
-            'headers' => ['Content-Type' => 'application/json'],
-            'json' => $data
+        $userData = array_pick($data, [
+            'firstname', 'lastname', 'mobile', 'email', 'password'
         ]);
+
+        $userAddresses = isset($data['addresses'])
+            ? $data['addresses']
+            : [];
+
+        $response = $this->client->call('PUT', 'users/' . $userId, [
+            'headers' => ['Content-Type' => 'application/json'],
+            'json' => $userData
+        ]);
+
+        if (isset($data['addresses'])) {
+            foreach ($userAddresses as $label => $address) {
+                if (isset($address['id'])) {
+                    $this->updateAddress($address['id'], array_pick($address, [
+                        'apartment_number', 'street', 'landmark', 'city_id', 'state_id', 'country_id'
+                    ]));
+                } else {
+                    $this->createAddress($userId, array_pick($address, [
+                        'apartment_number', 'street', 'landmark', 'city_id', 'state_id', 'country_id'
+                    ]));
+                }
+            }
+        }
+
+        return $response;
     }
 
     /**
@@ -66,13 +86,48 @@ class User
      */
     public function create($data)
     {
-        $this->buildAddress($data, 'home_address');
-        $this->buildAddress($data, 'work_address');
-        $this->buildAddress($data, 'other_address');
+        $userData = array_pick($data, [
+            'firstname', 'lastname', 'mobile', 'email', 'password'
+        ]);
 
-        return $this->client->call('POST', 'users', [
+        $tmpAddress = array_pick($data, [
+            'address_number', 'address_street', 'address_landmark',
+            'address_city', 'address_state', 'address_country'
+        ]);
+
+        $addressData = ['label' => 'Address'];
+        foreach ($tmpAddress as $key => $value) {
+            $addressData[str_replace('address_', '', $key)] = $value;
+        }
+
+        $user = $this->client->call('POST', 'users', [
             'headers' => ['Content-Type' => 'application/json'],
-            'json' => $data
+            'json' => $userData
+        ]);
+
+        $address = $this->client->call('POST', 'users/' . $user->id . '/addresses', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'json' => $addressData
+        ]);
+
+        return array_merge($user, [
+            'addresses' => $address
+        ]);
+    }
+
+    public function createAddress($userId, $address)
+    {
+        $this->client->call('POST', 'users/' . $userId . '/addresses', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'json' => $address
+        ]);
+    }
+
+    public function updateAddress($addressId, $address)
+    {
+        $this->client->call('PUT', 'addresses/' . $addressId, [
+            'headers' => ['Content-Type' => 'application/json'],
+            'json' => $address
         ]);
     }
 
@@ -83,28 +138,5 @@ class User
     public function datatableUrl()
     {
         return $this->client->buildUrl('datatables/admin/users');
-    }
-
-    protected function buildAddress(&$data, $name)
-    {
-        $address = implode('###', [
-            isset($data[$name . '_street']) ? $data[$name . '_street'] : '',
-            isset($data[$name . '_number']) ? $data[$name . '_number'] : '',
-            isset($data[$name . '_landmark']) ? $data[$name . '_landmark'] : '',
-            isset($data[$name . '_city']) ? $data[$name . '_city'] : '',
-            isset($data[$name . '_state']) ? $data[$name . '_state'] : '',
-            isset($data[$name . '_country']) ? $data[$name . '_country'] : ''
-        ]);
-
-        $data[$name] = $address;
-
-        unset(
-            $data[$name . '_street'],
-            $data[$name . '_number'],
-            $data[$name . '_landmark'],
-            $data[$name . '_city'],
-            $data[$name . '_state'],
-            $data[$name . '_country']
-        );
     }
 }

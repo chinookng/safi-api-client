@@ -57,6 +57,24 @@ class Product
     }
 
     /**
+     * @param $productId
+     * @param $imageFile
+     * @param $filename
+     * @return array|mixed
+     */
+    public function uploadImage($productId, $imageFile, $filename = null)
+    {
+        return $this->client->call('POST', 'products/' . $productId . '/image', [
+            'Content-Type' => 'multipart/form-data',
+            'multipart' => [
+                ['name' => 'filename', 'contents' => $filename],
+                ['name' => 'image', 'contents' => fopen($imageFile, 'r')]
+            ]
+        ]);
+    }
+
+    /**
+     * Returns the products api endpoint used by datatable
      * @return string
      */
     public function datatableUrl()

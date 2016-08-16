@@ -67,31 +67,6 @@ class SafiApi
     }
 
     /**
-     * @param $categoryId
-     * @param $data
-     * @return array|mixed
-     */
-    public function updateCategory($categoryId, $data)
-    {
-        return $this->call('POST', '/categories/' . $categoryId, [
-            'json' => $data
-        ]);
-    }
-
-    /**
-     * @param $orderId
-     * @return array|mixed
-     */
-    public function getOrder($orderId)
-    {
-        return $this->call('GET', 'orders/' . $orderId, [
-            'query' => [
-                'include' => 'users,details'
-            ]
-        ]);
-    }
-
-    /**
      * @param array $credentials
      * @return array|mixed
      */
