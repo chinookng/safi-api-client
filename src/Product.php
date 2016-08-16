@@ -19,7 +19,17 @@ class Product
      */
     public function all($options = [])
     {
-        return $this->client->call('GET', 'products', $options);
+        $options = array_merge($options, [
+            'query' => ['limit' => 1000]
+        ]);
+
+        $res = $this->client->call('GET', 'products', $options);
+
+        if (isset($res->data)) {
+            return $res->data;
+        }
+
+        return $res;
     }
 
     /**
