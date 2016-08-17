@@ -43,7 +43,7 @@ class SafiApi
         foreach ($options as $key => $value) {
             switch ($key) {
                 case 'baseUrl':
-                    $this->token = $value;
+                    $this->baseUrl = $value;
                     break;
                 case 'token':
                     $this->token = $value;
