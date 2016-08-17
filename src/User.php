@@ -1,6 +1,6 @@
 <?php
 
-namespace Morrelinko\SafiApi;
+namespace Chinookng\SafiApi;
 
 class User
 {

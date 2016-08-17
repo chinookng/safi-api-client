@@ -1,6 +1,6 @@
 <?php
 
-namespace Morrelinko\SafiApi;
+namespace Chinookng\SafiApi;
 
 use Morrelinko\SafiApi\Exception\SafiApiException;
 use GuzzleHttp\Client;
