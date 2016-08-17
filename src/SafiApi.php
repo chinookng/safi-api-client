@@ -10,6 +10,7 @@ use RuntimeException;
 
 /**
  * <pre><code>
+ *
  *  $safiApi = new SafiApi([
  *      'baseUrl' => 'https://api.safi.ng',
  *      'token' => session('access_token'),
