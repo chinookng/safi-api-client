@@ -19,7 +19,7 @@ class Order
     {
         return $this->client->call('GET', 'orders/' . $orderId, [
             'query' => [
-                'include' => 'users,details'
+                'include' => 'user,details'
             ]
         ]);
     }
