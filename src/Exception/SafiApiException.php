@@ -7,7 +7,7 @@ use GuzzleHttp\Exception\ServerException;
 
 class SafiApiException extends \Exception
 {
-    protected $errorMessage;
+     protected $errorMessage;
     protected $errorCode;
     protected $validationErrors = [];
 
@@ -41,7 +41,7 @@ class SafiApiException extends \Exception
 
     public static function serverException(ServerException $e)
     {
-        return $e;
+        dd($e);
     }
 
     public function getErrorMessage()
@@ -79,9 +79,9 @@ class SafiApiException extends \Exception
             $this->errorMessage = 'Validation error';
         } else {
             if (is_array($this->errorMessage) || is_object($this->errorMessage)) {
-                $this->errorMessage = $this->errorMessage[0];
+                $this->errorMessage = array_first($this->errorMessage);
                 if (is_array($this->errorMessage)) {
-                    $this->errorMessage = $this->errorMessage[0];
+                    $this->errorMessage = array_first($this->errorMessage);
                 }
             }
         }

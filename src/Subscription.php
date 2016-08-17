@@ -12,7 +12,7 @@ class Subscription
     }
 
     /**
-     * Gets product lists
+     * Gets all subscriptions
      *
      * @return array|mixed
      */

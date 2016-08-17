@@ -30,43 +30,6 @@ use RuntimeException;
  */
 class SafiApi
 {
-    protected $baseUrl;
-
-    protected $token;
-
-    protected $clientId;
-
-    protected $clientSecret;
-
-    public function __construct($options)
-    {
-        foreach ($options as $key => $value) {
-            switch ($key) {
-                case 'baseUrl':
-                    $this->baseUrl = $value;
-                    break;
-                case 'token':
-                    $this->token = $value;
-                    break;
-                case 'client_id':
-                    $this->clientId = $value;
-                    break;
-                case 'client_secret':
-                    $this->clientSecret = $value;
-                    break;
-            }
-        }
-    }
-
-    public function getCountAnalytics()
-    {
-        return $this->call('GET', 'analytics', [
-            'query' => [
-                'include' => 'active_users,subscribers'
-            ]
-        ]);
-    }
-
     /**
      * @param array $credentials
      * @return array|mixed
@@ -81,8 +44,8 @@ class SafiApi
         return $this->call('POST', 'oauth/access_token', [
             'form_params' => [
                 'grant_type' => 'password',
-                'client_id' => $this->clientId,
-                'client_secret' => $this->clientSecret,
+                'client_id' => env('SAFI_API_ID'),
+                'client_secret' => env('SAFI_API_SECRET'),
                 'username' => $credentials['email'],
                 'password' => $credentials['password']
             ]
@@ -95,7 +58,7 @@ class SafiApi
      */
     public function buildUrl($appends = '/')
     {
-        return trim($this->baseUrl, ' /') . '/v1/' . trim($appends, '/');
+        return url(env('API_URL') . 'v1/' . trim($appends, '/'));
     }
 
     public function call($method, $url, $options = [], $client = null)
@@ -128,9 +91,9 @@ class SafiApi
     protected function createResourceClient()
     {
         $client = new Client([
-            'base_uri' => trim($this->baseUrl, ' /') . '/v1/',
+            'base_uri' => url(env('API_URL') . 'v1/'),
             'headers' => [
-                'Authorization' => 'Bearer ' . $this->token
+                'Authorization' => 'Bearer ' . session('token')
             ]
         ]);
 
@@ -140,7 +103,7 @@ class SafiApi
     protected function createAuthenticationClient()
     {
         $client = new Client([
-            'base_uri' => $this->baseUrl
+            'base_uri' => url(env('API_URL'))
         ]);
 
         return $client;
@@ -148,7 +111,7 @@ class SafiApi
 
     /**
      * @param $name
-     * @return User|Subscription|Product|Schedule|Offer|Location|Category
+     * @return User|Subscription|Product|Schedule|Offer|Location|Category|Order
      */
     function __get($name)
     {
@@ -167,6 +130,8 @@ class SafiApi
                 return new Location($this);
             case 'categories':
                 return new Category($this);
+            case 'orders':
+                return new Order($this);
         }
 
         throw new RuntimeException(
