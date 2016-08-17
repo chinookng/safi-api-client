@@ -83,6 +83,28 @@ class Product
         ]);
     }
 
+
+    public function attributes()
+    {
+        return [
+            'stains' => [
+                'Oil',
+                'Alcohol',
+                'Biro'
+            ],
+            'damages' => [
+                'Bubbles',
+                'Collar Torn',
+                'Button Broken'
+            ],
+            'colors' => [
+                'Black',
+                'Brown',
+                'Blue'
+            ]
+        ];
+    }
+
     /**
      * Returns the products api endpoint used by datatable
      * @return string
