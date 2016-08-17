@@ -2,7 +2,7 @@
 
 namespace Chinookng\SafiApi;
 
-use Morrelinko\SafiApi\Exception\SafiApiException;
+use Chinookng\SafiApi\Exception\SafiApiException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
