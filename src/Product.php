@@ -83,7 +83,6 @@ class Product
         ]);
     }
 
-
     public function attributes()
     {
         return [

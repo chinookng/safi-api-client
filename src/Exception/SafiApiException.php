@@ -7,7 +7,7 @@ use GuzzleHttp\Exception\ServerException;
 
 class SafiApiException extends \Exception
 {
-     protected $errorMessage;
+    protected $errorMessage;
     protected $errorCode;
     protected $validationErrors = [];
 

@@ -12,7 +12,7 @@ class User
     }
 
     /**
-     * Gets product lists
+     * Gets users lists
      * @param $options
      * @return array|mixed
      */
