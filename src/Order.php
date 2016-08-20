@@ -54,7 +54,7 @@ class Order
      * @param $options
      * @return array|mixed
      */
-    public function cartDecrementProduct($uniqueId, $productId, $options)
+    public function cartDecrementProduct($uniqueId, $productId, $options = [])
     {
         $options = array_merge_recursive($options, [
             'Content-Type' => 'application/json'
@@ -94,7 +94,7 @@ class Order
      * @param $options
      * @return array|mixed
      */
-    public function cartDecrementOffer($uniqueId, $offerId, $options)
+    public function cartDecrementOffer($uniqueId, $offerId, $options = [])
     {
         $options = array_merge_recursive($options, [
             'Content-Type' => 'application/json'
@@ -112,7 +112,7 @@ class Order
      * @param $items
      * @param $options
      */
-    public function updateOrderItems($orderId, $items, $option = [])
+    public function updateOrderItems($orderId, $items, $options = [])
     {
         $options = array_merge_recursive($options, [
             'Content-Type' => 'application/json',
