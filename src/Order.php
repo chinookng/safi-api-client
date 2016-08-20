@@ -133,4 +133,16 @@ class Order
 
         return $this->client->call('GET', 'orders/details/' . $barcode, $options);
     }
+
+    public function getStatuses()
+    {
+        return [
+            'placed',
+            'collected',
+            'cleaned',
+            'ready',
+            'delivered',
+            'cancelled'
+        ];
+    }
 }
