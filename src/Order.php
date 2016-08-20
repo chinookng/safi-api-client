@@ -119,17 +119,18 @@ class Order
             'json' => $items
         ]);
 
-        $this->client->call('PUT', '/orders/details', $options);
+        $this->client->call('PUT', 'orders/details', $options);
     }
 
     /**
      * @param $barcode
+     * @param $options
      * @return array|mixed
      */
-    public function getOrderItemByBarcode($barcode)
+    public function getOrderItemByBarcode($barcode, $options = [])
     {
         $options = array_merge_recursive([], $options);
 
-        return $this->client->call('GET', '/orders/details/' . $barcode, $options);
+        return $this->client->call('GET', 'orders/details/' . $barcode, $options);
     }
 }
