@@ -113,7 +113,7 @@ class SafiApi
      * @param $name
      * @return User|Subscription|Product|Schedule|Offer|Location|Category|Order
      */
-    function __get($name)
+    public function __get($name)
     {
         switch ($name) {
             case 'products':

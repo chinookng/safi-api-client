@@ -18,9 +18,7 @@ class Order
     public function get($orderId)
     {
         return $this->client->call('GET', 'orders/' . $orderId, [
-            'query' => [
-                'include' => 'user,details'
-            ]
+            'query' => ['include' => 'user,details']
         ]);
     }
 
@@ -62,9 +60,11 @@ class Order
             'Content-Type' => 'application/json'
         ]);
 
-        return $this->client->call('DELETE',
+        return $this->client->call(
+            'DELETE',
             'carts/' . $uniqueId . '/products/' . $productId . '/product',
-            $options);
+            $options
+        );
     }
 
     /**
@@ -100,8 +100,36 @@ class Order
             'Content-Type' => 'application/json'
         ]);
 
-        return $this->client->call('DELETE',
+        return $this->client->call(
+            'DELETE',
             'carts/' . $uniqueId . '/products/' . $offerId . '/offer',
-            $options);
+            $options
+        );
+    }
+
+    /**
+     * @param $orderId
+     * @param $items
+     * @param $options
+     */
+    public function updateOrderItems($orderId, $items, $option = [])
+    {
+        $options = array_merge_recursive($options, [
+            'Content-Type' => 'application/json',
+            'json' => $items
+        ]);
+
+        $this->client->call('PUT', '/orders/details', $options);
+    }
+
+    /**
+     * @param $barcode
+     * @return array|mixed
+     */
+    public function getOrderItemByBarcode($barcode)
+    {
+        $options = array_merge_recursive([], $options);
+
+        return $this->client->call('GET', '/orders/details/' . $barcode, $options);
     }
 }
