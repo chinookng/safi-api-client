@@ -85,7 +85,7 @@ class Product
 
     public function attributes()
     {
-        return $this->client->call('GET', 'products/attribute', []);
+        return $this->client->call('GET', 'products/attributes', []);
     }
 
     /**
