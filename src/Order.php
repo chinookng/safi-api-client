@@ -112,7 +112,7 @@ class Order
      * @param $items
      * @param $options
      */
-    public function updateOrderItems($orderId, $items, $options = [])
+    public function updateOrderItems($items, $options = [])
     {
         $options = array_merge_recursive($options, [
             'Content-Type' => 'application/json',
