@@ -47,4 +47,9 @@ class Merchant
             'json' => $data
         ]);
     }
+
+    public function ordersDatatableUrl($shopId)
+    {
+        return $this->client->buildUrl('datatables/merchant/' . $shopId . '/orders');
+    }
 }
