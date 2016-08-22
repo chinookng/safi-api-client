@@ -46,7 +46,7 @@ class SafiApiException extends \Exception
 
     public static function runtimeException($message)
     {
-        return new static($message);
+        return new static($message, 0);
     }
 
     public function getErrorMessage()
