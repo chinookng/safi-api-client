@@ -125,9 +125,16 @@ class User
 
     public function updateAddress($addressId, $address)
     {
-        $this->client->call('PUT', 'addresses/' . $addressId, [
+        return $this->client->call('PUT', 'addresses/' . $addressId, [
             'headers' => ['Content-Type' => 'application/json'],
             'json' => $address
+        ]);
+    }
+
+    public function getMerchantShops($userId)
+    {
+        return $this->client->call('GET', 'users/' . $userId . '/merchants', [
+            'headers' => ['Content-Type' => 'application/json']
         ]);
     }
 
