@@ -4,6 +4,13 @@ namespace Chinookng\SafiApi;
 
 class Merchant
 {
+    protected $client;
+
+    public function __construct(SafiApi $client)
+    {
+        $this->client = $client;
+    }
+    
     /**
      * finds a merchant
      * @param $options
