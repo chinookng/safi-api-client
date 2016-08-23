@@ -11,6 +11,11 @@ class Offer
         $this->client = $client;
     }
 
+    public function all()
+    {
+        return $this->find([]);
+    }
+
     /**
      * Gets all offers
      * @return array|mixed
