@@ -107,6 +107,14 @@ class Order
         );
     }
 
+    public function cartClear($uniqueId)
+    {
+        return $this->client->call(
+            'DELETE',
+            'carts/' . $uniqueId
+        );
+    }
+
     /**
      * @param $orderId
      * @param $items
