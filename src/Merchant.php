@@ -34,22 +34,22 @@ class Merchant
     }
 
     /**
-     * @param $merchantId
+     * @param $shopId
      * @return array|mixed
      */
-    public function get($merchantId)
+    public function get($shopId)
     {
-        return $this->client->call('GET', 'merchants/' . $merchantId);
+        return $this->client->call('GET', 'merchants/' . $shopId);
     }
 
     /**
-     * @param $merchantId
+     * @param $shopId
      * @param $data
      * @return array|mixed
      */
-    public function update($merchantId, $data)
+    public function update($shopId, $data)
     {
-        return $this->client->call('PUT', 'merchants/' . $merchantId, [
+        return $this->client->call('PUT', 'merchants/' . $shopId, [
             'headers' => ['Content-Type' => 'application/json'],
             'json' => $data
         ]);
