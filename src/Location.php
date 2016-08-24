@@ -11,6 +11,11 @@ class Location
         $this->client = $client;
     }
 
+    public function list()
+    {
+        return $this->client->call('GET', 'countries/hash/all');
+    }
+
     /**
      * @return array|mixed
      */
