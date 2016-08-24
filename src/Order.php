@@ -11,6 +11,16 @@ class Order
         $this->client = $client;
     }
 
+    public function create($data, $options = [])
+    {
+        $options = array_merge($options, [
+            'headers' => ['Content-Type' => 'application/json'],
+            'json' => $data
+        ]);
+
+        return $this->client->call('POST', 'orders', $options);
+    }
+
     /**
      * @param $orderId
      * @return array|mixed
