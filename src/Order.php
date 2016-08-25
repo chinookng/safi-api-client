@@ -21,6 +21,16 @@ class Order
         return $this->client->call('POST', 'orders', $options);
     }
 
+    public function createForSubscription($data, $options = [])
+    {
+        $options = array_merge($options, [
+            'headers' => ['Content-Type' => 'application/json'],
+            'json' => $data
+        ]);
+
+        return $this->client->call('POST', 'orders/details', $options);
+    }
+
     /**
      * @param $orderId
      * @return array|mixed
