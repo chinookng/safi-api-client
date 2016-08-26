@@ -22,6 +22,11 @@ class Category
         return $this->client->call('GET', 'categories', $options);
     }
 
+    public function get($categoryId)
+    {
+        return $this->client->call('GET', 'categories/' .$categoryId);
+    }
+
     /**
      * @param $data
      * @return array|mixed
