@@ -42,6 +42,7 @@ class Category
     public function update($categoryId, $data)
     {
         return $this->client->call('POST', '/categories/' . $categoryId, [
+            'headers' => ['Content-Type' => 'application/json'],
             'json' => $data
         ]);
     }
