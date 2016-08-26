@@ -115,6 +115,32 @@ class User
         ]);
     }
 
+    public function allAbilities()
+    {
+        return $this->client->call('GET', 'abilities');
+    }
+
+    public function getUserAbilities($userId)
+    {
+        return $this->client->call('GET', 'users/' . $userId . '/abilities');
+    }
+
+    public function setUserAbilities($userId, $abilities = [])
+    {
+        return $this->client->call('POST', 'users/' . $userId . '/abilities', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'json' => ['abilities' => $abilities]
+        ]);
+    }
+
+    public function deleteUserAbilities($userId, $abilities = [])
+    {
+        return $this->client->call('DELETE', 'users/' . $userId . '/abilities', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'json' => ['abilities' => $abilities]
+        ]);
+    }
+
     public function createAddress($userId, $address)
     {
         $this->client->call('POST', 'users/' . $userId . '/addresses', [
