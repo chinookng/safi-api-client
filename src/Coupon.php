@@ -32,7 +32,7 @@ class Coupon
      * @param $options
      * @return array|mixed
      */
-    public function get($code, $options)
+    public function get($code, $options = [])
     {
         return $this->client->call('GET', 'coupons/' . $code, $options);
     }
@@ -70,6 +70,6 @@ class Coupon
 
     public function datatableUrl()
     {
-        return $this->client->buildUrl('datatables/coupons');
+        return $this->client->buildUrl('datatables/admin/coupons');
     }
 }

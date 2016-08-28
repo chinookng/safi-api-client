@@ -32,7 +32,7 @@ class Offer
      * @param $options
      * @return array|mixed
      */
-    public function get($id, $options)
+    public function get($id, $options = [])
     {
         return $this->client->call('GET', 'offers/' . $id, $options);
     }
