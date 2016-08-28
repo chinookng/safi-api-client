@@ -67,4 +67,9 @@ class Coupon
 
         return $this->client->call('PUT', 'coupons/' . $code, $options);
     }
+
+    public function datatableUrl($code)
+    {
+        return $this->client->buildUrl('datatables/coupons');
+    }
 }
