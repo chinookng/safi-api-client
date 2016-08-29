@@ -16,7 +16,7 @@ class Subscription
      *
      * @return array|mixed
      */
-    public function find()
+    public function all()
     {
         return $this->client->call('GET', 'subscriptions');
     }
