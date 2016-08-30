@@ -55,6 +55,22 @@ class Merchant
         ]);
     }
 
+    public function addStaff($shopId, $userId)
+    {
+        return $this->client->call(
+            'POST',
+            'merchants/' . $shopId . '/users/' . $shopId
+        );
+    }
+
+    public function removeStaff($shopId, $userId)
+    {
+        return $this->client->call(
+            'DELETE',
+            'merchants/' . $shopId . '/users/' . $userId
+        );
+    }
+
     public function ordersDatatableUrl($shopId)
     {
         return $this->client->buildUrl('datatables/merchant/' . $shopId . '/orders');
