@@ -35,11 +35,12 @@ class Merchant
 
     /**
      * @param $shopId
+     * @param $options
      * @return array|mixed
      */
-    public function get($shopId)
+    public function get($shopId, $options = [])
     {
-        return $this->client->call('GET', 'merchants/' . $shopId);
+        return $this->client->call('GET', 'merchants/' . $shopId, $options);
     }
 
     /**
