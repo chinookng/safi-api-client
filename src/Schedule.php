@@ -25,6 +25,11 @@ class Schedule
         return null;
     }
 
+    public function timeslots()
+    {
+        return $this->client->call('GET', 'timeslots');
+    }
+
     public function dailySchedules()
     {
         return $this->client->call('GET', 'admin_times');
