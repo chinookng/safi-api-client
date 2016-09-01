@@ -30,6 +30,16 @@ class Schedule
         return $this->client->call('GET', 'timeslots');
     }
 
+    public function updateCollectionTime($id, $data)
+    {
+        return $this->client->call('times/collections/' . $id, $data);
+    }
+
+    public function updateDeliveryTime($id, $data)
+    {
+        return $this->client->call('times/deliveries/' . $id, $data);
+    }
+
     public function dailySchedules()
     {
         return $this->client->call('GET', 'admin_times');
