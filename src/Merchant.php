@@ -72,6 +72,14 @@ class Merchant
         );
     }
 
+    public function setStaffs($shopId, $staffs = [])
+    {
+        return $this->client->call(
+            'POST',
+            'merchants/' . $shopId . '/users'
+        );
+    }
+
     public function ordersDatatableUrl($shopId)
     {
         return $this->client->buildUrl('datatables/merchant/' . $shopId . '/orders');
