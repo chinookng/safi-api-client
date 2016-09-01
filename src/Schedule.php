@@ -28,6 +28,6 @@ class Schedule
 
     public function dailySchedules()
     {
-        return $this->client->call('GET', '');
+        return $this->client->call('GET', 'admin_times');
     }
 }
