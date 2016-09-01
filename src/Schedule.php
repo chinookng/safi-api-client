@@ -17,8 +17,7 @@ class Schedule
      */
     public function all()
     {
-        // return $this->client->call('GET', 'times');
-        return $this->generateMockSchedules();
+        return $this->client->call('GET', 'admin_times');
     }
 
     public function get()
