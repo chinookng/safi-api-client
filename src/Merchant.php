@@ -76,7 +76,7 @@ class Merchant
     {
         return $this->client->call('POST', 'merchants/' . $shopId . '/users', [
             'headers' => ['Content-Type' => 'application/json'],
-            'json' => $staffs
+            'json' => ['users_id' => $staffs]
         ]);
     }
 
