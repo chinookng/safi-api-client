@@ -74,10 +74,10 @@ class Merchant
 
     public function setStaffs($shopId, $staffs = [])
     {
-        return $this->client->call(
-            'POST',
-            'merchants/' . $shopId . '/users'
-        );
+        return $this->client->call('POST', 'merchants/' . $shopId . '/users', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'json' => $staffs
+        ]);
     }
 
     public function ordersDatatableUrl($shopId)
