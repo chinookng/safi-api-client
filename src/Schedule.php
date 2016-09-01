@@ -32,7 +32,7 @@ class Schedule
 
     public function updateCollectionTime($id, $data)
     {
-        return $this->client->call('times/collections/' . $id, [
+        return $this->client->call('PUT', 'times/collections/' . $id, [
             'headers' => ['Content-Type' => 'application/json'],
             'json' => $data
         ]);
@@ -40,7 +40,7 @@ class Schedule
 
     public function updateDeliveryTime($id, $data)
     {
-        return $this->client->call('times/deliveries/' . $id, [
+        return $this->client->call('PUT', 'times/deliveries/' . $id, [
             'headers' => ['Content-Type' => 'application/json'],
             'json' => $data
         ]);
