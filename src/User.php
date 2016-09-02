@@ -86,33 +86,14 @@ class User
      */
     public function create($data)
     {
-        $userData = array_pick($data, [
-            'firstname', 'lastname', 'mobile', 'email', 'password'
-        ]);
-
-        $tmpAddress = array_pick($data, [
-            'address_number', 'address_street', 'address_landmark',
-            'address_city', 'address_state', 'address_country'
-        ]);
-
-        $addressData = ['label' => 'Address'];
-        foreach ($tmpAddress as $key => $value) {
-            $addressData[str_replace('address_', '', $key)] = $value;
-        }
-
         $user = $this->client->call('POST', 'users', [
             'headers' => ['Content-Type' => 'application/json'],
-            'json' => $userData
+            'json' => array_pick($data, [
+                'firstname', 'lastname', 'mobile', 'email', 'password'
+            ])
         ]);
 
-        $address = $this->client->call('POST', 'users/' . $user->id . '/addresses', [
-            'headers' => ['Content-Type' => 'application/json'],
-            'json' => $addressData
-        ]);
-
-        return array_merge($user, [
-            'addresses' => $address
-        ]);
+        return $user;
     }
 
     public function allAbilities()
