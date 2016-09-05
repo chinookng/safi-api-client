@@ -136,6 +136,8 @@ class SafiApi
                 return new Merchant($this);
             case 'coupons':
                 return new Coupon($this);
+            case 'support':
+                return new Support($this);
         }
 
         throw new RuntimeException(
