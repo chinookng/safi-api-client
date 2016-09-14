@@ -24,6 +24,14 @@ class Location
         return $this->client->call('GET', 'countries');
     }
 
+    public function createCountry($data)
+    {
+        return $this->client->call('POST', 'countries', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'json' => $data
+        ]);
+    }
+
     public function updateCountry($countryId, $data)
     {
         return $this->client->call('PUT', 'countries/' . $countryId, [
@@ -49,6 +57,14 @@ class Location
         return $this->client->call('GET', 'countries/' . $country, [
             'query' => ['include' => 'states']
         ])->states;
+    }
+
+    public function createState($data)
+    {
+        return $this->client->call('POST', 'states', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'json' => $data
+        ]);
     }
 
     /**
@@ -81,6 +97,14 @@ class Location
         return $this->client->call('GET', 'states/' . $state, [
             'query' => ['include' => 'cities']
         ])->cities;
+    }
+
+    public function createCity($data)
+    {
+        return $this->client->call('POST', 'cities', [
+            'headers' => ['Content-Type' => 'application/json'],
+            'json' => $data
+        ]);
     }
 
     /**
