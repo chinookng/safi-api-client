@@ -111,7 +111,7 @@ class SafiApi
 
     /**
      * @param $name
-     * @return User|Subscription|Product|Schedule|Offer|Location|Category|Order
+     * @return User|Subscription|Product|Schedule|Offer|Location|Category\Order
      */
     public function __get($name)
     {
@@ -138,6 +138,8 @@ class SafiApi
                 return new Coupon($this);
             case 'support':
                 return new Support($this);
+            case 'payment':
+                return new Payment($this);
         }
 
         throw new RuntimeException(
