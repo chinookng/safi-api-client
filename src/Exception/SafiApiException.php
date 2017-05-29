@@ -41,7 +41,22 @@ class SafiApiException extends \Exception
 
     public static function serverException(ServerException $e)
     {
-        dd($e);
+        $message = $e->getMessage();
+        $errorCode = 'unknown_error';
+
+        if ($e->hasResponse()) {
+            $json = \GuzzleHttp\json_decode($e->getResponse()->getBody());
+            if (isset($json->error_description)) {
+                $message = $json->error_description;
+            } else {
+                if (isset($json->error) && is_object($json->error)) {
+                    $errorCode = $json->error->id;
+                    $message = $json->error->details;
+                }
+            }
+        }
+
+        return new static($message, $errorCode, $e->getPrevious());
     }
 
     public static function runtimeException($message)
